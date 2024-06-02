@@ -8,66 +8,73 @@ xScale.domain(xDomain);
 yScale.domain(yDomain);
 heightScale.domain(yDomain);
 
-let currentXHome = 200;
+let currentXHome = 100;
 
 function buildHome(data) {
     const homeWidth = parseFloat(xScale(data.homeWidth));
     const homeHeight = parseFloat(heightScale(data.homeHeight));
-    y = parseFloat(yScale(100));
-    let home = `${currentXHome},${y} ` +
-               `${currentXHome+homeWidth/2},${y} ` +
-               `${currentXHome+homeWidth/2},${y-homeHeight} ` +
-               `${currentXHome-homeWidth/2},${y-homeHeight} ` +
-               `${currentXHome-homeWidth/2},${y}`;
-               currentXHome += homeWidth + 20;
-    return home;
-}
-
-let currentXRoof = 200;
-
-function buildRoof(data) {
     const roofWidth = parseFloat(xScale(data.roofWidth));
     const roofHeight = parseFloat(heightScale(data.roofHeight));
-    const homeHeight = parseFloat(heightScale(data.homeHeight));
-    y = parseFloat(yScale(100));
-    let roof = `${currentXRoof},${y-homeHeight} ` +
-               `${currentXRoof+roofWidth/2},${y-homeHeight} ` +
-               `${currentXRoof},${y-homeHeight-roofHeight} ` +
-               `${currentXRoof-roofWidth/2},${y-homeHeight} `;
-    currentXRoof += 400;
-    return roof;
+    const y = parseFloat(yScale(100));
+
+    // Calcola le coordinate della casa
+    let home = `${currentXHome},${y} ` +
+               `${currentXHome + homeWidth / 2},${y} ` +
+               `${currentXHome + homeWidth / 2},${y - homeHeight} ` +
+               `${currentXHome - homeWidth / 2},${y - homeHeight} ` +
+               `${currentXHome - homeWidth / 2},${y}`;
+
+    // Calcola le coordinate del tetto
+    let roof = `${currentXHome},${y - homeHeight} ` +
+               `${currentXHome + roofWidth / 2},${y - homeHeight} ` +
+               `${currentXHome},${y - homeHeight - roofHeight} ` +
+               `${currentXHome - roofWidth / 2},${y - homeHeight}`;
+
+    // Trova la larghezza maggiore tra homeWidth e roofWidth e aggiorna currentXHome
+    const maxWidth = Math.max(homeWidth, roofWidth);
+    currentXHome += maxWidth + 40; 
+
+    console.log(`Home coordinates: ${home}`);
+    console.log(`Roof coordinates: ${roof}`);
+
+    return { home, roof };
 }
 
 function fillBoard(svgBoard, data) {
     let homes = svgBoard.selectAll(".home")
         .data(data)
-        .enter();
-    homes.append("polygon")
-        .attr("fill", "yellow")
-        .attr("class", "home")
-        .attr("points", buildHome);
+        .enter()
+        .append("g"); // Raggruppa ogni casa e tetto in un elemento <g>
 
-    let roofs = svgBoard.selectAll(".roof")
-        .data(data)
-        .enter();
-    roofs.append("polygon")
-        .attr("fill", "brown")
-        .attr("class", "roof")
-        .attr("points", buildRoof);
+    homes.each(function(d) {
+        const houseData = buildHome(d);
+
+        d3.select(this).append("polygon")
+            .attr("fill", "yellow")
+            .attr("class", "home")
+            .attr("points", houseData.home);
+
+        d3.select(this).append("polygon")
+            .attr("fill", "brown")
+            .attr("class", "roof")
+            .attr("points", houseData.roof);
+    });
 }
 
 d3.json("data.json")
     .then(function(data) {
-        const boardHeight = Math.floor(0.8*window.screen.height);
-        const boardWidth = Math.floor(0.8*window.screen.width);
+        const boardHeight = Math.floor(0.8 * window.screen.height);
+        const boardWidth = Math.floor(0.8 * window.screen.width);
 
         let svgBoard = d3.select("#svg-board");
         svgBoard.attr("width", boardWidth);
         svgBoard.attr("height", boardHeight);
 
-        xScale.range([0, boardWidth]);
+        xScale.range([0, boardWidth/3]);
         yScale.range([boardHeight, 0]);
         heightScale.range([0, boardHeight]);
+
+        console.log(`Board dimensions: ${boardWidth}x${boardHeight}`);
 
         fillBoard(svgBoard, data);
     })
