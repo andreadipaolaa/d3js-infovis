@@ -2,66 +2,58 @@ let xScale = d3.scaleLinear();
 let yScale = d3.scaleLinear();
 let heightScale = d3.scaleLinear();
 
-const xDomain = [0, 100];
-const yDomain = [0, 100];
+const xDomain = [0, 1000];
+const yDomain = [0, 800];
 xScale.domain(xDomain);
 yScale.domain(yDomain);
 heightScale.domain(yDomain);
 
-function buildTriangle(triangle) {
-    let x = parseFloat(xScale(triangle.x));
-    let y = parseFloat(yScale(triangle.y));
-    let base = parseFloat(xScale(triangle.base));
-    let height = parseFloat(heightScale(triangle.height));
-    return `${x},${y} ${x+base},${y} ${x+(base/2)},${y-height}`;
+let currentXHome = 200;
+
+function buildHome(data) {
+    const homeWidth = parseFloat(xScale(data.homeWidth));
+    const homeHeight = parseFloat(heightScale(data.homeHeight));
+    y = parseFloat(yScale(100));
+    let home = `${currentXHome},${y} ` +
+               `${currentXHome+homeWidth/2},${y} ` +
+               `${currentXHome+homeWidth/2},${y-homeHeight} ` +
+               `${currentXHome-homeWidth/2},${y-homeHeight} ` +
+               `${currentXHome-homeWidth/2},${y}`;
+               currentXHome += homeWidth + 20;
+    return home;
 }
 
-function updateBoard(svgBoard, data) {
-    svgBoard.selectAll("polygon")
-        .data(data)
-        .transition()
-        .duration(750)
-        .attr("points", buildTriangle)
-        .duration(250)
-        .attr("stroke-width", function(triangle) {
-            if (triangle.hasEdge) return 3;
-            return 0;
-        });
-}
+let currentXRoof = 200;
 
-let lastClickedTriangle = null;
+function buildRoof(data) {
+    const roofWidth = parseFloat(xScale(data.roofWidth));
+    const roofHeight = parseFloat(heightScale(data.roofHeight));
+    const homeHeight = parseFloat(heightScale(data.homeHeight));
+    y = parseFloat(yScale(100));
+    let roof = `${currentXRoof},${y-homeHeight} ` +
+               `${currentXRoof+roofWidth/2},${y-homeHeight} ` +
+               `${currentXRoof},${y-homeHeight-roofHeight} ` +
+               `${currentXRoof-roofWidth/2},${y-homeHeight} `;
+    currentXRoof += 400;
+    return roof;
+}
 
 function fillBoard(svgBoard, data) {
-    svgBoard.selectAll("polygon")
+    let homes = svgBoard.selectAll(".home")
         .data(data)
-        .enter()
-        .append("polygon")
-        .attr("fill", function(triangle) {
-            return `hsl(${triangle.hue}, 100%, 50%)`;
-        })
-        .attr("stroke", "black")
-        .attr("points", buildTriangle)
-        .attr("stroke-width", 0)
-        .on("click", function(event, triangle) {
-            if (lastClickedTriangle == null) {
-                lastClickedTriangle = triangle;
-                triangle.hasEdge = true;
-                updateBoard(svgBoard, data);
-            }
-            else {
-                lastClickedTriangle.hasEdge = false;
-                let base1 = lastClickedTriangle.base;
-                let height1 = lastClickedTriangle.height;
-                let base2 = triangle.base;
-                let height2 = triangle.height;
-                triangle.base = base1;
-                triangle.height = height1;
-                lastClickedTriangle.base = base2;
-                lastClickedTriangle.height = height2;
-                lastClickedTriangle = null;
-                updateBoard(svgBoard, data);
-            }
-        });
+        .enter();
+    homes.append("polygon")
+        .attr("fill", "yellow")
+        .attr("class", "home")
+        .attr("points", buildHome);
+
+    let roofs = svgBoard.selectAll(".roof")
+        .data(data)
+        .enter();
+    roofs.append("polygon")
+        .attr("fill", "brown")
+        .attr("class", "roof")
+        .attr("points", buildRoof);
 }
 
 d3.json("data.json")

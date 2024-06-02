@@ -1,72 +1,62 @@
 [
     {
-        "x": 20,
-        "y": 100,
-        "base": 100,
-        "height": 70,
-        "hue": 100
+        "homeWidth": 160,
+        "homeHeight": 130,
+        "roofWidth": 180,
+        "roofHeight": 60
     },
     {
-        "x": 500,
-        "y":300,
-        "base": 150,
-        "height": 100,
-        "hue": 180
+        "homeWidth": 110,
+        "homeHeight": 70,
+        "roofWidth": 130,
+        "roofHeight": 80
     },
     {
-        "x": 300,
-        "y": 500,
-        "base": 90,
-        "height": 45,
-        "hue": 270
+        "homeWidth": 140,
+        "homeHeight": 100,
+        "roofWidth": 160,
+        "roofHeight": 50
     },
     {
-        "x": 50,
-        "y": 450,
-        "base": 60,
-        "height": 45,
-        "hue": 60
+        "homeWidth": 350,
+        "homeHeight": 80,
+        "roofWidth": 140,
+        "roofHeight": 60
     },
     {
-        "x": 800,
-        "y": 370,
-        "base": 40,
-        "height": 60,
-        "hue": 10
+        "homeWidth": 130,
+        "homeHeight": 90,
+        "roofWidth": 150,
+        "roofHeight": 70
     },
     {
-        "x": 600,
-        "y": 60,
-        "base": 40,
-        "height": 30,
-        "hue": 310
+        "homeWidth": 150,
+        "homeHeight": 85,
+        "roofWidth": 170,
+        "roofHeight": 55
     },
     {
-        "x": 580,
-        "y": 700,
-        "base": 100,
-        "height": 80,
-        "hue": 120
+        "homeWidth": 170,
+        "homeHeight": 95,
+        "roofWidth": 190,
+        "roofHeight": 75
     },
     {
-        "x": 750,
-        "y": 650,
-        "base": 90,
-        "height": 80,
-        "hue": 190
+        "homeWidth": 125,
+        "homeHeight": 75,
+        "roofWidth": 145,
+        "roofHeight": 65
     },
     {
-        "x": 10,
-        "y": 650,
-        "base": 75,
-        "height": 30,
-        "hue": 250
+        "homeWidth": 135,
+        "homeHeight": 85,
+        "roofWidth": 155,
+        "roofHeight": 70
     },
     {
-        "x": 300,
-        "y": 250,
-        "base": 75,
-        "height": 90,
-        "hue": 40
+        "homeWidth": 145,
+        "homeHeight": 90,
+        "roofWidth": 165,
+        "roofHeight": 60
     }
-  ]
+]
