@@ -1,62 +1,63 @@
 [
     {
-        "homeWidth": 160,
-        "homeHeight": 130,
-        "roofWidth": 180,
-        "roofHeight": 60
+      "homeWidth": 512,
+      "homeHeight": 738,
+      "roofWidth": 287,
+      "roofHeight": 923
     },
     {
-        "homeWidth": 110,
-        "homeHeight": 70,
-        "roofWidth": 130,
-        "roofHeight": 80
+      "homeWidth": 637,
+      "homeHeight": 291,
+      "roofWidth": 508,
+      "roofHeight": 443
     },
     {
-        "homeWidth": 140,
-        "homeHeight": 100,
-        "roofWidth": 160,
-        "roofHeight": 50
+      "homeWidth": 834,
+      "homeHeight": 154,
+      "roofWidth": 918,
+      "roofHeight": 370
     },
     {
-        "homeWidth": 220,
-        "homeHeight": 80,
-        "roofWidth": 140,
-        "roofHeight": 60
+      "homeWidth": 285,
+      "homeHeight": 492,
+      "roofWidth": 363,
+      "roofHeight": 926
     },
     {
-        "homeWidth": 130,
-        "homeHeight": 90,
-        "roofWidth": 150,
-        "roofHeight": 70
+      "homeWidth": 175,
+      "homeHeight": 738,
+      "roofWidth": 759,
+      "roofHeight": 122
     },
     {
-        "homeWidth": 150,
-        "homeHeight": 85,
-        "roofWidth": 170,
-        "roofHeight": 55
+      "homeWidth": 828,
+      "homeHeight": 404,
+      "roofWidth": 137,
+      "roofHeight": 451
     },
     {
-        "homeWidth": 170,
-        "homeHeight": 95,
-        "roofWidth": 190,
-        "roofHeight": 75
+      "homeWidth": 431,
+      "homeHeight": 128,
+      "roofWidth": 723,
+      "roofHeight": 361
     },
     {
-        "homeWidth": 125,
-        "homeHeight": 75,
-        "roofWidth": 145,
-        "roofHeight": 65
+      "homeWidth": 892,
+      "homeHeight": 997,
+      "roofWidth": 312,
+      "roofHeight": 1000
     },
     {
-        "homeWidth": 135,
-        "homeHeight": 85,
-        "roofWidth": 155,
-        "roofHeight": 70
+      "homeWidth": 237,
+      "homeHeight": 465,
+      "roofWidth": 584,
+      "roofHeight": 722
     },
     {
-        "homeWidth": 145,
-        "homeHeight": 90,
-        "roofWidth": 165,
-        "roofHeight": 60
+      "homeWidth": 546,
+      "homeHeight": 124,
+      "roofWidth": 843,
+      "roofHeight": 675
     }
-]
+  ]
+  
