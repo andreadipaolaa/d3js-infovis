@@ -57,47 +57,50 @@ function fillBoard(svgBoard, data) {
             .attr("class", "home")
             .attr("points", houseData.home)
             .attr("data-case", d.homeWidth) // Aggiungi l'attributo data-case
-            .on("click", function() { sortHouses("homeWidth"); }); // Event listener
+            .on("click", function() { sortHouses(data, "homeWidth"); }); // Event listener
 
         d3.select(this).append("polygon")
             .attr("fill", "brown")
             .attr("class", "roof")
             .attr("points", houseData.roof)
             .attr("data-case", d.roofWidth) // Aggiungi l'attributo data-case
-            .on("click", function() { sortHouses("roofWidth"); }); // Event listener
+            .on("click", function() { sortHouses(data, "roofWidth"); }); // Event listener
+
     });
 }
 
-function sortHouses(property) {
-    d3.json("data.json")
-        .then(function(data) {
-            data.sort((a, b) => d3.ascending(a[property], b[property]));
+function sortHouses(data, property) {
 
-            let homes = d3.select("#svg-board").selectAll(".house");
+    data.sort((a, b) => {
+        // Ordina in base alla proprietà property
+        return a[property] - b[property];
+    });
+    currentXHome = 0 + (xRange / 2);
+    currentHeight = 200 + (70 + (2 * yRange));
 
-            // Rimuovere gli elementi esistenti con una transizione di scomparsa
-            homes.transition()
+    let n = 0;
+    d3.selectAll(".house")
+        .data(data)
+        .each(function(d) {
+            if (n === 5) {
+                currentXHome = 10 + (xRange / 2);
+                currentHeight -= (70 + (2 * yRange));
+            }
+            n += 1;
+
+            const houseData = buildHome(d);
+            d3.select(this).select(".home")
+                .transition()
                 .duration(1000)
-                .style("opacity", 0)
-                .remove()
-                .on("end", function() {
-                    // Una volta rimossi, ricostruire la board con i dati ordinati
-                    currentXHome = 10;
-                    currentHeight = 200;
-                    let svgBoard = d3.select("#svg-board");
-                    currentXHome += (xRange / 2);
-                    currentHeight += (70 + (2 * yRange));
-                    fillBoard(svgBoard, data);
-
-                    // Appare con una transizione
-                    d3.select("#svg-board").selectAll(".house")
-                        .style("opacity", 0)
-                        .transition()
-                        .duration(1000)
-                        .style("opacity", 1);
-                });
-        })
-        .catch(error => console.log(error));
+                .attr("points", houseData.home)
+                .attr("data-case", d.homeWidth);
+            d3.select(this).select(".roof")
+                .transition()
+                .duration(1000)
+                .attr("points", houseData.roof)
+                .attr("data-case", d.roofWidth);
+        });
+    
 }
 
 d3.json("data.json")
