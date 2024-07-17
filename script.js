@@ -11,7 +11,22 @@ heightScale.domain(yDomain);
 let currentXHome = 10;
 let xRange = 0;
 let yRange = 0;
-let currentHeight = 200;
+let currentHeight = 100;
+
+let caratteristica = "Width";
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    const toggle = document.getElementById('toggle');
+
+    toggle.addEventListener('change', (event) => {
+        if (event.target.checked) {
+            variabileSelezionata = 'Height';
+        } else {
+            variabileSelezionata = 'Width';
+        }
+        console.log(`La caratteristica selezionata è: ${caratteristica}`);
+    });
+});
 
 function buildHome(data) {
     const homeWidth = parseFloat(xScale(data.homeWidth));
@@ -57,14 +72,14 @@ function fillBoard(svgBoard, data) {
             .attr("class", "home")
             .attr("points", houseData.home)
             .attr("data-case", d.homeWidth) // Aggiungi l'attributo data-case
-            .on("click", function() { sortHouses(data, "homeWidth"); }); // Event listener
+            .on("click", function() { sortHouses(data, "home"+caratteristica); }); // Event listener
 
         d3.select(this).append("polygon")
             .attr("fill", "brown")
             .attr("class", "roof")
             .attr("points", houseData.roof)
             .attr("data-case", d.roofWidth) // Aggiungi l'attributo data-case
-            .on("click", function() { sortHouses(data, "roofWidth"); }); // Event listener
+            .on("click", function() { sortHouses(data, "roof"+caratteristica); }); // Event listener
 
     });
 }
@@ -76,7 +91,7 @@ function sortHouses(data, property) {
         return a[property] - b[property];
     });
     currentXHome = 0 + (xRange / 2);
-    currentHeight = 200 + (70 + (2 * yRange));
+    currentHeight = 100 + (70 + (2 * yRange));
 
     let n = 0;
     d3.selectAll(".house")
