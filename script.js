@@ -20,9 +20,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     toggle.addEventListener('change', (event) => {
         if (event.target.checked) {
-            variabileSelezionata = 'Height';
+            caratteristica = 'Height';
         } else {
-            variabileSelezionata = 'Width';
+            caratteristica = 'Width';
         }
         console.log(`La caratteristica selezionata è: ${caratteristica}`);
     });
